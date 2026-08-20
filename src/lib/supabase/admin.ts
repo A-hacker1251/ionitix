@@ -1,6 +1,12 @@
 import { createClient } from '@supabase/supabase-js'
+import { createMockClient, isSupabaseConfigured } from './mock'
 
 export function createAdminClient() {
+  // If Supabase is not configured, return mock client
+  if (!isSupabaseConfigured()) {
+    return createMockClient()
+  }
+
   return createClient(
     process.env.NEXT_PUBLIC_SUPABASE_URL!,
     process.env.SUPABASE_SERVICE_ROLE_KEY!,

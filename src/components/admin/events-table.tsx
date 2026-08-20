@@ -45,7 +45,7 @@ export function EventsTable({ initialEvents }: EventsTableProps) {
         query = query.eq("status", statusFilter)
       }
 
-      const { data, error } = await query
+      const { data, error } = await (query as any)
 
       if (error) throw error
       setEvents(data || [])
@@ -233,7 +233,8 @@ export function EventsTable({ initialEvents }: EventsTableProps) {
                                 <Trash2 className="h-4 w-4 mr-2" />
                                 Delete
                               </DropdownMenuItem>
-                            </DropdownMenuContent                          </DropdownMenu>
+                            </DropdownMenuContent>
+                          </DropdownMenu>
                         </td>
                       </tr>
                     )

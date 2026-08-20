@@ -23,9 +23,9 @@ export async function getRegistrations(eventId?: string, filters: SearchFilters 
     queryBuilder = queryBuilder.or(`name.ilike.%${query}%,email.ilike.%${query}%,usn.ilike.%${query}%`)
   }
 
-  const { data, error, count } = await queryBuilder
+  const { data, error, count } = await (queryBuilder
     .order(sortBy, { ascending: sortOrder === 'asc' })
-    .range((page - 1) * limit, page * limit - 1)
+    .range((page - 1) * limit, page * limit - 1) as any)
 
   if (error) throw error
 
@@ -40,11 +40,11 @@ export async function getRegistrations(eventId?: string, filters: SearchFilters 
 
 export async function getRegistrationById(id: string): Promise<Registration | null> {
   const supabase = await createClient()
-  const { data, error } = await supabase
+  const { data, error } = await (supabase
     .from('registrations')
     .select('*')
     .eq('id', id)
-    .single()
+    .single() as any)
 
   if (error) return null
   return data
@@ -52,11 +52,11 @@ export async function getRegistrationById(id: string): Promise<Registration | nu
 
 export async function createRegistration(registration: Omit<Registration, 'id' | 'created_at'>) {
   const supabase = await createClient()
-  const { data, error } = await supabase
+  const { data, error } = await (supabase
     .from('registrations')
     .insert(registration)
     .select()
-    .single()
+    .single() as any)
 
   if (error) throw error
   return data
@@ -64,10 +64,10 @@ export async function createRegistration(registration: Omit<Registration, 'id' |
 
 export async function getRegistrationCount(eventId: string): Promise<number> {
   const supabase = await createClient()
-  const { count, error } = await supabase
+  const { count, error } = await (supabase
     .from('registrations')
     .select('*', { count: 'exact', head: true })
-    .eq('event_id', eventId)
+    .eq('event_id', eventId) as any)
 
   if (error) throw error
   return count || 0
@@ -75,13 +75,13 @@ export async function getRegistrationCount(eventId: string): Promise<number> {
 
 export async function getRegistrationsByDateRange(eventId: string, from: string, to: string): Promise<Registration[]> {
   const supabase = await createClient()
-  const { data, error } = await supabase
+  const { data, error } = await (supabase
     .from('registrations')
     .select('*')
     .eq('event_id', eventId)
     .gte('created_at', from)
     .lte('created_at', to)
-    .order('created_at', { ascending: true })
+    .order('created_at', { ascending: true }) as any)
 
   if (error) throw error
   return data || []

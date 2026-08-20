@@ -20,13 +20,14 @@ export async function getGalleryItems(filters: SearchFilters = {}): Promise<Pagi
     queryBuilder = queryBuilder.or(`title.ilike.%${query}%`)
   }
 
-  if (category && category !== 'all') {
-    queryBuilder = queryBuilder.eq('category', category)
+  const cat = category as string
+  if (cat && cat !== 'all') {
+    queryBuilder = queryBuilder.eq('category', cat)
   }
 
-  const { data, error, count } = await queryBuilder
+  const { data, error, count } = await (queryBuilder
     .order(sortBy, { ascending: sortOrder === 'asc' })
-    .range((page - 1) * limit, page * limit - 1)
+    .range((page - 1) * limit, page * limit - 1) as any)
 
   if (error) throw error
 
@@ -41,22 +42,22 @@ export async function getGalleryItems(filters: SearchFilters = {}): Promise<Pagi
 
 export async function getGalleryCategories(): Promise<string[]> {
   const supabase = await createClient()
-  const { data, error } = await supabase
+  const { data, error } = await (supabase
     .from('gallery')
-    .select('category')
+    .select('category') as any)
 
   if (error) throw error
-  const categories = ['all', ...new Set(data?.map(e => e.category) || [])]
+  const categories = ['all', ...new Set((data as any[])?.map((e: any) => e.category as string) || [])]
   return categories
 }
 
 export async function getGalleryByEvent(eventId: string): Promise<GalleryItem[]> {
   const supabase = await createClient()
-  const { data, error } = await supabase
+  const { data, error } = await (supabase
     .from('gallery')
     .select('*')
     .eq('event_id', eventId)
-    .order('created_at', { ascending: false })
+    .order('created_at', { ascending: false }) as any)
 
   if (error) throw error
   return data || []
@@ -64,11 +65,11 @@ export async function getGalleryByEvent(eventId: string): Promise<GalleryItem[]>
 
 export async function createGalleryItem(item: Omit<GalleryItem, 'id' | 'created_at'>) {
   const admin = (await import('./admin')).createAdminClient()
-  const { data, error } = await admin
+  const { data, error } = await (admin
     .from('gallery')
     .insert(item)
     .select()
-    .single()
+    .single() as any)
 
   if (error) throw error
   return data
@@ -76,6 +77,6 @@ export async function createGalleryItem(item: Omit<GalleryItem, 'id' | 'created_
 
 export async function deleteGalleryItem(id: string) {
   const admin = (await import('./admin')).createAdminClient()
-  const { error } = await admin.from('gallery').delete().eq('id', id)
+  const { error } = await (admin.from('gallery').delete().eq('id', id) as any)
   if (error) throw error
 }

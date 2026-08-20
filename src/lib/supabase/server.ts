@@ -1,7 +1,13 @@
 import { createServerClient, type CookieOptions } from '@supabase/ssr'
 import { cookies } from 'next/headers'
+import { createMockClient, isSupabaseConfigured } from './mock'
 
 export async function createClient() {
+  // If Supabase is not configured, return mock client
+  if (!isSupabaseConfigured()) {
+    return createMockClient()
+  }
+
   const cookieStore = await cookies()
 
   return createServerClient(

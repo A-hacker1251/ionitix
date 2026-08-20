@@ -35,7 +35,7 @@ export function Footer() {
   }
 
   return (
-    <footer className="bg-muted/50 border-t border-border">
+    <footer className="bg-secondary/50 border-t border-[hsl(276_30%_20%_/_0.3)]">
       <div className="container-custom py-12 lg:py-16">
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 lg:gap-12">
           <div className="lg:col-span-1">
@@ -111,7 +111,7 @@ export function Footer() {
           </address>
         </div>
 
-        <div className="mt-12 pt-8 border-t border-border flex flex-col md:flex-row items-center justify-between gap-4">
+        <div className="mt-12 pt-8 border-t border-[hsl(276_30%_20%_/_0.3)] flex flex-col md:flex-row items-center justify-between gap-4">
           <p className="text-sm text-muted-foreground">
             © {currentYear} IONITIX. All Rights Reserved.
           </p>

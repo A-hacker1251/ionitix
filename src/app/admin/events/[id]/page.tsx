@@ -1,6 +1,6 @@
 "use client"
 
-import { useState } from "react"
+import React, { useState } from "react"
 import { useRouter, useParams } from "next/navigation"
 import { useForm } from "react-hook-form"
 import { zodResolver } from "@hookform/resolvers/zod"
@@ -17,6 +17,7 @@ import { toast } from "sonner"
 import { createClient } from "@/lib/supabase/client"
 import { AdminLayout } from "@/components/admin/admin-layout"
 import { EVENT_CATEGORIES, REGISTRATION_TYPES, REGISTRATION_DISPLAY_MODES, EVENT_STATUSES } from "@/lib/constants"
+import { cn } from "@/lib/utils"
 import { Loader2, Save, Eye, Calendar, Clock, MapPin, User, Mail, Phone, Image as ImageIcon, Globe, FileText } from "lucide-react"
 import Image from "next/image"
 

@@ -20,6 +20,7 @@ interface StatCardProps {
   change?: string
   changeType?: "positive" | "negative" | "neutral"
   href?: string
+  style?: React.CSSProperties
 }
 
 function StatCard({ title, value, icon, change, changeType, href }: StatCardProps) {

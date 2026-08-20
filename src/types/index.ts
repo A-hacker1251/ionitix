@@ -53,6 +53,7 @@ export interface Announcement {
   attachment_url?: string
   published: boolean
   published_at?: string
+  category?: string
   created_at: string
   updated_at: string
 }
@@ -78,6 +79,9 @@ export interface Laboratory {
   equipment?: string[]
   technologies?: string[]
   image?: string
+  in_charge?: string
+  location?: string
+  capacity?: string
   created_at: string
   updated_at: string
 }

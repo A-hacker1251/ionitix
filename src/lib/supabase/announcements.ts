@@ -21,9 +21,9 @@ export async function getAnnouncements(filters: SearchFilters = {}): Promise<Pag
     queryBuilder = queryBuilder.or(`title.ilike.%${query}%,description.ilike.%${query}%`)
   }
 
-  const { data, error, count } = await queryBuilder
+  const { data, error, count } = await (queryBuilder
     .order(sortBy, { ascending: sortOrder === 'asc' })
-    .range((page - 1) * limit, page * limit - 1)
+    .range((page - 1) * limit, page * limit - 1) as any)
 
   if (error) throw error
 
@@ -38,12 +38,12 @@ export async function getAnnouncements(filters: SearchFilters = {}): Promise<Pag
 
 export async function getAnnouncementBySlug(slug: string): Promise<Announcement | null> {
   const supabase = await createClient()
-  const { data, error } = await supabase
+  const { data, error } = await (supabase
     .from('announcements')
     .select('*')
     .eq('slug', slug)
     .eq('published', true)
-    .single()
+    .single() as any)
 
   if (error) return null
   return data
@@ -51,12 +51,12 @@ export async function getAnnouncementBySlug(slug: string): Promise<Announcement 
 
 export async function getLatestAnnouncements(limit = 5): Promise<Announcement[]> {
   const supabase = await createClient()
-  const { data, error } = await supabase
+  const { data, error } = await (supabase
     .from('announcements')
     .select('*')
     .eq('published', true)
     .order('published_at', { ascending: false })
-    .limit(limit)
+    .limit(limit) as any)
 
   if (error) throw error
   return data || []
@@ -64,11 +64,11 @@ export async function getLatestAnnouncements(limit = 5): Promise<Announcement[]>
 
 export async function createAnnouncement(announcement: Omit<Announcement, 'id' | 'created_at' | 'updated_at'>) {
   const admin = (await import('./admin')).createAdminClient()
-  const { data, error } = await admin
+  const { data, error } = await (admin
     .from('announcements')
     .insert(announcement)
     .select()
-    .single()
+    .single() as any)
 
   if (error) throw error
   return data
@@ -76,12 +76,12 @@ export async function createAnnouncement(announcement: Omit<Announcement, 'id' |
 
 export async function updateAnnouncement(id: string, announcement: Partial<Announcement>) {
   const admin = (await import('./admin')).createAdminClient()
-  const { data, error } = await admin
+  const { data, error } = await (admin
     .from('announcements')
     .update({ ...announcement, updated_at: new Date().toISOString() })
     .eq('id', id)
     .select()
-    .single()
+    .single() as any)
 
   if (error) throw error
   return data
@@ -89,6 +89,6 @@ export async function updateAnnouncement(id: string, announcement: Partial<Annou
 
 export async function deleteAnnouncement(id: string) {
   const admin = (await import('./admin')).createAdminClient()
-  const { error } = await admin.from('announcements').delete().eq('id', id)
+  const { error } = await (admin.from('announcements').delete().eq('id', id) as any)
   if (error) throw error
 }

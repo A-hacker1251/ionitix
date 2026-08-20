@@ -3,10 +3,10 @@ import { Faculty } from '@/types'
 
 export async function getFaculty(): Promise<Faculty[]> {
   const supabase = await createClient()
-  const { data, error } = await supabase
+  const { data, error } = await (supabase
     .from('faculty')
     .select('*')
-    .order('name', { ascending: true })
+    .order('name', { ascending: true }) as any)
 
   if (error) throw error
   return data || []
@@ -14,11 +14,11 @@ export async function getFaculty(): Promise<Faculty[]> {
 
 export async function getFacultyById(id: string): Promise<Faculty | null> {
   const supabase = await createClient()
-  const { data, error } = await supabase
+  const { data, error } = await (supabase
     .from('faculty')
     .select('*')
     .eq('id', id)
-    .single()
+    .single() as any)
 
   if (error) return null
   return data
@@ -26,11 +26,11 @@ export async function getFacultyById(id: string): Promise<Faculty | null> {
 
 export async function createFaculty(faculty: Omit<Faculty, 'id' | 'created_at' | 'updated_at'>) {
   const admin = (await import('./admin')).createAdminClient()
-  const { data, error } = await admin
+  const { data, error } = await (admin
     .from('faculty')
     .insert(faculty)
     .select()
-    .single()
+    .single() as any)
 
   if (error) throw error
   return data
@@ -38,12 +38,12 @@ export async function createFaculty(faculty: Omit<Faculty, 'id' | 'created_at' |
 
 export async function updateFaculty(id: string, faculty: Partial<Faculty>) {
   const admin = (await import('./admin')).createAdminClient()
-  const { data, error } = await admin
+  const { data, error } = await (admin
     .from('faculty')
     .update({ ...faculty, updated_at: new Date().toISOString() })
     .eq('id', id)
     .select()
-    .single()
+    .single() as any)
 
   if (error) throw error
   return data
@@ -51,6 +51,6 @@ export async function updateFaculty(id: string, faculty: Partial<Faculty>) {
 
 export async function deleteFaculty(id: string) {
   const admin = (await import('./admin')).createAdminClient()
-  const { error } = await admin.from('faculty').delete().eq('id', id)
+  const { error } = await (admin.from('faculty').delete().eq('id', id) as any)
   if (error) throw error
 }

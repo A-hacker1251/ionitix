@@ -33,6 +33,7 @@ export const announcementSchema = z.object({
   attachment_url: z.string().url('Invalid URL').optional().or(z.literal('')),
   published: z.boolean().default(false),
   published_at: z.string().regex(/^\d{4}-\d{2}-\d{2}$/, 'Invalid date format (YYYY-MM-DD)').optional().or(z.literal('')),
+  category: z.string().optional(),
 })
 
 export const facultySchema = z.object({
@@ -52,6 +53,9 @@ export const laboratorySchema = z.object({
   equipment: z.array(z.string()).optional(),
   technologies: z.array(z.string()).optional(),
   image: z.string().url('Invalid URL').optional().or(z.literal('')),
+  in_charge: z.string().max(100, 'In-charge must be less than 100 characters').optional().or(z.literal('')),
+  location: z.string().max(200, 'Location must be less than 200 characters').optional().or(z.literal('')),
+  capacity: z.string().max(50, 'Capacity must be less than 50 characters').optional().or(z.literal('')),
 })
 
 export const achievementSchema = z.object({

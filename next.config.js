@@ -24,6 +24,8 @@ const nextConfig = {
   experimental: {
     optimizePackageImports: ['lucide-react', '@radix-ui/react-icons'],
   },
+  transpilePackages: ['framer-motion'],
+  output: 'standalone',
 }
 
 module.exports = nextConfig

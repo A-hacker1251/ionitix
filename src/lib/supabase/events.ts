@@ -36,9 +36,9 @@ export async function getEvents(filters: SearchFilters = {}): Promise<PaginatedR
     queryBuilder = queryBuilder.lte('event_date', dateTo)
   }
 
-  const { data, error, count } = await queryBuilder
+  const { data, error, count } = await (queryBuilder
     .order(sortBy, { ascending: sortOrder === 'asc' })
-    .range((page - 1) * limit, page * limit - 1)
+    .range((page - 1) * limit, page * limit - 1) as any)
 
   if (error) throw error
 
@@ -51,42 +51,17 @@ export async function getEvents(filters: SearchFilters = {}): Promise<PaginatedR
   }
 }
 
-export async function getEventBySlug(slug: string): Promise<Event | null> {
-  const supabase = await createClient()
-  const { data, error } = await supabase
-    .from('events')
-    .select('*')
-    .eq('slug', slug)
-    .eq('status', 'published')
-    .single()
-
-  if (error) return null
-  return data
-}
-
-export async function getEventById(id: string): Promise<Event | null> {
-  const supabase = await createClient()
-  const { data, error } = await supabase
-    .from('events')
-    .select('*')
-    .eq('id', id)
-    .single()
-
-  if (error) return null
-  return data
-}
-
 export async function getUpcomingEvents(limit = 6): Promise<Event[]> {
   const supabase = await createClient()
   const now = new Date().toISOString().split('T')[0]
   
-  const { data, error } = await supabase
+  const { data, error } = await (supabase
     .from('events')
     .select('*')
     .eq('status', 'published')
     .gte('event_date', now)
     .order('event_date', { ascending: true })
-    .limit(limit)
+    .limit(limit) as any)
 
   if (error) throw error
   return data || []
@@ -98,14 +73,14 @@ export async function getOngoingEvents(): Promise<Event[]> {
   const today = now.toISOString().split('T')[0]
   const currentTime = now.toTimeString().slice(0, 5)
   
-  const { data, error } = await supabase
+  const { data, error } = await (supabase
     .from('events')
     .select('*')
     .eq('status', 'published')
     .eq('event_date', today)
     .lte('start_time', currentTime)
     .gte('end_time', currentTime)
-    .order('start_time', { ascending: true })
+    .order('start_time', { ascending: true }) as any)
 
   if (error) throw error
   return data || []
@@ -115,13 +90,13 @@ export async function getCompletedEvents(limit = 6): Promise<Event[]> {
   const supabase = await createClient()
   const now = new Date().toISOString().split('T')[0]
   
-  const { data, error } = await supabase
+  const { data, error } = await (supabase
     .from('events')
     .select('*')
     .eq('status', 'published')
     .lt('event_date', now)
     .order('event_date', { ascending: false })
-    .limit(limit)
+    .limit(limit) as any)
 
   if (error) throw error
   return data || []
@@ -129,14 +104,14 @@ export async function getCompletedEvents(limit = 6): Promise<Event[]> {
 
 export async function getRelatedEvents(category: EventCategory, excludeId: string, limit = 3): Promise<Event[]> {
   const supabase = await createClient()
-  const { data, error } = await supabase
+  const { data, error } = await (supabase
     .from('events')
     .select('*')
     .eq('category', category)
     .eq('status', 'published')
     .neq('id', excludeId)
     .order('event_date', { ascending: true })
-    .limit(limit)
+    .limit(limit) as any)
 
   if (error) throw error
   return data || []
@@ -144,11 +119,11 @@ export async function getRelatedEvents(category: EventCategory, excludeId: strin
 
 export async function createEvent(event: Omit<Event, 'id' | 'created_at' | 'updated_at'>) {
   const admin = (await import('./admin')).createAdminClient()
-  const { data, error } = await admin
+  const { data, error } = await (admin
     .from('events')
     .insert(event)
     .select()
-    .single()
+    .single() as any)
 
   if (error) throw error
   return data
@@ -156,12 +131,12 @@ export async function createEvent(event: Omit<Event, 'id' | 'created_at' | 'upda
 
 export async function updateEvent(id: string, event: Partial<Event>) {
   const admin = (await import('./admin')).createAdminClient()
-  const { data, error } = await admin
+  const { data, error } = await (admin
     .from('events')
     .update({ ...event, updated_at: new Date().toISOString() })
     .eq('id', id)
     .select()
-    .single()
+    .single() as any)
 
   if (error) throw error
   return data
@@ -169,18 +144,54 @@ export async function updateEvent(id: string, event: Partial<Event>) {
 
 export async function deleteEvent(id: string) {
   const admin = (await import('./admin')).createAdminClient()
-  const { error } = await admin.from('events').delete().eq('id', id)
+  const { error } = await (admin.from('events').delete().eq('id', id) as any)
   if (error) throw error
 }
 
-export async function getEventCategories(): Promise<EventCategory[]> {
+export async function getEventBySlug(slug: string): Promise<Event | null> {
   const supabase = await createClient()
-  const { data, error } = await supabase
+  const { data, error } = await (supabase
     .from('events')
-    .select('category')
+    .select('*')
+    .eq('slug', slug)
     .eq('status', 'published')
+    .single() as any)
+
+  if (error) return null
+  return data
+}
+
+export async function getEventById(id: string): Promise<Event | null> {
+  const supabase = await createClient()
+  const { data, error } = await (supabase
+    .from('events')
+    .select('*')
+    .eq('id', id)
+    .single() as any)
+
+  if (error) return null
+  return data
+}
+
+export async function getEventCategories(): Promise<string[]> {
+  const supabase = await createClient()
+  const { data, error } = await (supabase
+    .from('events')
+    .select('category') as any)
 
   if (error) throw error
-  const categories = [...new Set(data?.map(e => e.category) || [])]
-  return categories as EventCategory[]
+  const categories = ['all', ...new Set((data as any[])?.map((e: any) => e.category as string) || [])]
+  return categories
+}
+
+export async function getEventRegistrations(eventId: string): Promise<any[]> {
+  const supabase = await createClient()
+  const { data, error } = await (supabase
+    .from('registrations')
+    .select('*')
+    .eq('event_id', eventId)
+    .order('created_at', { ascending: false }) as any)
+
+  if (error) throw error
+  return data || []
 }

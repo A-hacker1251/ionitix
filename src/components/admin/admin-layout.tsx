@@ -6,7 +6,6 @@ import { usePathname } from "next/navigation"
 import { motion, AnimatePresence } from "framer-motion"
 import { cn } from "@/lib/utils"
 import { Button } from "@/components/ui/button"
-import { Sidebar } from "./sidebar"
 import { ADMIN_NAV_ITEMS } from "@/lib/constants"
 import {
   LayoutDashboard,
@@ -129,7 +128,7 @@ function Sidebar({
   onToggleCollapse,
   onClose,
 }: {
-  navigation: typeof ADMIN_NAV_ITEMS
+  navigation: Array<{ href: string; label: string; icon: React.ComponentType<any> }>
   pathname: string
   collapsed: boolean
   onToggleCollapse: () => void
