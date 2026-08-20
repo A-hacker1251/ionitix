@@ -1,6 +1,6 @@
 "use client"
 
-import { useState } from "react"
+import { useState, useEffect } from "react"
 import Link from "next/link"
 import { Search, Plus, Filter, ChevronDown, Mail, Phone, GraduationCap, Award, Eye, Edit, Trash2, MoreHorizontal, Loader2, User } from "lucide-react"
 import { Button } from "@/components/ui/button"
@@ -51,6 +51,10 @@ export function FacultyTable({ initialFaculty }: FacultyTableProps) {
       setLoading(false)
     }
   }
+
+  useEffect(() => {
+    fetchFaculty()
+  }, [searchQuery, designationFilter])
 
   const handleDelete = async (id: string) => {
     if (!confirm("Are you sure you want to delete this faculty member? This action cannot be undone.")) return

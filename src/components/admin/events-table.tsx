@@ -1,6 +1,6 @@
 "use client"
 
-import { useState } from "react"
+import { useState, useEffect } from "react"
 import Link from "next/link"
 import { Search, Plus, Filter, ChevronDown, Calendar, Clock, MapPin, Eye, Edit, Trash2, MoreHorizontal, Download, Loader2 } from "lucide-react"
 import { Button } from "@/components/ui/button"
@@ -56,6 +56,10 @@ export function EventsTable({ initialEvents }: EventsTableProps) {
       setLoading(false)
     }
   }
+
+  useEffect(() => {
+    fetchEvents()
+  }, [searchQuery, categoryFilter, statusFilter])
 
   const handleDelete = async (id: string) => {
     if (!confirm("Are you sure you want to delete this event? This action cannot be undone.")) return

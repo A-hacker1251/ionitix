@@ -1,6 +1,6 @@
 "use client"
 
-import { useState } from "react"
+import { useState, useEffect } from "react"
 import Link from "next/link"
 import { Search, Plus, Filter, ChevronDown, Calendar, Tag, Eye, Edit, Trash2, MoreHorizontal, Loader2 } from "lucide-react"
 import { Button } from "@/components/ui/button"
@@ -56,6 +56,10 @@ export function AnnouncementsTable({ initialAnnouncements }: AnnouncementsTableP
       setLoading(false)
     }
   }
+
+  useEffect(() => {
+    fetchAnnouncements()
+  }, [searchQuery, categoryFilter, publishedFilter])
 
   const handleDelete = async (id: string) => {
     if (!confirm("Are you sure you want to delete this announcement? This action cannot be undone.")) return

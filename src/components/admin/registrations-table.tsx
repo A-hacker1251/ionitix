@@ -1,6 +1,6 @@
 "use client"
 
-import { useState } from "react"
+import { useState, useEffect } from "react"
 import { Search, Filter, ChevronDown, Calendar, Download, Loader2, Eye, User, Mail, Phone, GraduationCap, Building2, Clock } from "lucide-react"
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
@@ -124,6 +124,10 @@ export function RegistrationsTable({ initialRegistrations, initialEvents }: Regi
       setExporting(false)
     }
   }
+
+  useEffect(() => {
+    fetchData()
+  }, [searchQuery, eventFilter, dateFromFilter, dateToFilter, exporting])
 
   return (
     <div className="space-y-6">

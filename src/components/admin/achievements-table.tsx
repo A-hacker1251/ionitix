@@ -1,6 +1,6 @@
 "use client"
 
-import { useState } from "react"
+import { useState, useEffect } from "react"
 import Link from "next/link"
 import { Search, Plus, Filter, ChevronDown, Award, Trophy, Medal, Star, GraduationCap, Users, FlaskConical, BookOpen, Eye, Edit, Trash2, MoreHorizontal, Loader2 } from "lucide-react"
 import { Button } from "@/components/ui/button"
@@ -51,6 +51,10 @@ export function AchievementsTable({ initialAchievements }: AchievementsTableProp
       setLoading(false)
     }
   }
+
+  useEffect(() => {
+    fetchAchievements()
+  }, [searchQuery, categoryFilter])
 
   const handleDelete = async (id: string) => {
     if (!confirm("Are you sure you want to delete this achievement? This action cannot be undone.")) return
