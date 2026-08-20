@@ -104,11 +104,11 @@ export function AdminLayout({ children }: AdminLayoutProps) {
                   </span>
                 </Link>
               </Button>
-              <Button variant="ghost" size="icon" asChild>
-                <Link href="/api/auth/signout">
+              <form action="/api/auth/signout" method="POST">
+                <Button variant="ghost" size="icon" type="submit">
                   <LogOut className="h-5 w-5" />
-                </Link>
-              </Button>
+                </Button>
+              </form>
             </div>
           </div>
         </header>
@@ -183,17 +183,17 @@ function Sidebar({
       </nav>
 
       <div className="p-4 border-t border-border">
-        <Button
-          variant="outline"
-          className={cn("w-full justify-start gap-3", collapsed && "justify-center px-2")}
-          onClick={onClose}
-          asChild
-        >
-          <Link href="/api/auth/signout">
+        <form action="/api/auth/signout" method="POST" className="w-full">
+          <Button
+            type="submit"
+            variant="outline"
+            className={cn("w-full justify-start gap-3", collapsed && "justify-center px-2")}
+            onClick={onClose}
+          >
             <LogOut className="h-5 w-5 flex-shrink-0" />
             {!collapsed && <span>Sign Out</span>}
-          </Link>
-        </Button>
+          </Button>
+        </form>
       </div>
     </div>
   )

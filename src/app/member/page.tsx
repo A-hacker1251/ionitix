@@ -46,11 +46,11 @@ export default async function MemberDashboardPage() {
                 </span>
               </Link>
             </Button>
-            <Button variant="ghost" size="icon" asChild>
-              <Link href="/api/auth/signout">
+            <form action="/api/auth/signout" method="POST">
+              <Button variant="ghost" size="icon" type="submit">
                 <LogOut className="h-5 w-5" />
-              </Link>
-            </Button>
+              </Button>
+            </form>
           </div>
         </div>
       </header>
