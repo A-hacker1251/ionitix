@@ -128,7 +128,7 @@ export function AcademicsClient({ programs, specializations }: AcademicsClientPr
                           Download Curriculum PDF
                         </a>
                       </Button>
-                      <Button variant="outline" asChild size="sm">
+                      <Button variant="outline" className="bg-[#00b0ff]" asChild size="sm">
                         <a href="/contact">
                           <Clock className="h-4 w-4 mr-2" />
                           Admission Inquiry
@@ -194,8 +194,8 @@ export function AcademicsClient({ programs, specializations }: AcademicsClientPr
         </div>
       </section>
 
-      <section className="section-padding relative overflow-hidden" style={{ background: 'hsl(276 65% 46%)' }}>
-        <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_center,_hsl(276_65%_46%_/_0.3)_0%,_transparent_70%)]" />
+      <section className="section-padding relative overflow-hidden" style={{ background: '#00b0ff' }}>
+        <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_center,_#00b0ff4d_0%,_transparent_70%)]" />
         <div className="container-custom text-center relative z-10">
           <motion.div
             initial={{ opacity: 0, y: 30 }}
@@ -207,7 +207,7 @@ export function AcademicsClient({ programs, specializations }: AcademicsClientPr
               Join our community of innovators and builders. Start your application today.
             </p>
             <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
-              <Button size="xl" variant="secondary" asChild>
+              <Button size="xl" variant="secondary" className="bg-[#00b0ff]" asChild>
                 <a href="/contact">Admission Inquiry</a>
               </Button>
               <Button size="xl" variant="outline" className="bg-transparent border-primary-foreground/30 hover:bg-primary-foreground/10" asChild>

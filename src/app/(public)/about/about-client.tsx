@@ -205,8 +205,8 @@ export function AboutClient() {
         </div>
       </section>
 
-      <section className="section-padding relative overflow-hidden" style={{ background: 'hsl(276 65% 46%)' }}>
-        <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_center,_hsl(276_65%_46%_/_0.3)_0%,_transparent_70%)]" />
+      <section className="section-padding relative overflow-hidden" style={{ background: '#00b0ff' }}>
+        <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_center,_#00b0ff4d_0%,_transparent_70%)]" />
         <div className="container-custom text-center relative z-10">
           <motion.div
             initial={{ opacity: 0, y: 30 }}
