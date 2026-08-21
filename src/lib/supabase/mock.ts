@@ -463,6 +463,17 @@ range: (from: number, to: number) => {
           error: null 
         };
       },
+      onAuthStateChange: (callback: (event: string, session: any) => void) => {
+        // Immediately invoke with no session for mock
+        callback('INITIAL_SESSION', null);
+        return {
+          data: {
+            subscription: {
+              unsubscribe: () => {},
+            },
+          },
+        };
+      },
     },
     storage: {
       from: () => ({
