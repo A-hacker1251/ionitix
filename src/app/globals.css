@@ -80,9 +80,15 @@
   .glass {
     @apply bg-[hsl(270_50%_8%_/_0.8)] backdrop-blur-xl;
   }
+  .light .glass {
+    @apply bg-white/80;
+  }
   
   .glass-card {
     @apply glass border border-[hsl(276_30%_20%_/_0.3)] shadow-[0_4px_20px_hsl(276_65%_46%_/_0.08)];
+  }
+  .light .glass-card {
+    @apply bg-white/90 border-[hsl(210_30%_80%_/_0.5)] shadow-[0_4px_20px_hsl(210_30%_50%_/_0.06)];
   }
   
   .gradient-text {
@@ -92,9 +98,15 @@
   .hero-gradient {
     @apply bg-gradient-to-br from-[hsl(199_100%_50%_/_0.03)] via-transparent to-[hsl(188_100%_50%_/_0.03)];
   }
+  .light .hero-gradient {
+    @apply bg-gradient-to-br from-[hsl(199_100%_50%_/_0.05)] via-[hsl(210_40%_98%)] to-[hsl(188_100%_50%_/_0.05)];
+  }
   
   .section-gradient {
     @apply bg-gradient-to-b from-[hsl(215_40%_4%)] via-[hsl(215_30%_6%)] to-[hsl(215_40%_4%)];
+  }
+  .light .section-gradient {
+    @apply bg-gradient-to-b from-[hsl(210_40%_97%)] via-[hsl(210_30%_98%)] to-[hsl(210_40%_97%)];
   }
   
   .accent-line {

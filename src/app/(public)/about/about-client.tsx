@@ -57,7 +57,7 @@ const highlights = [
 export function AboutClient() {
   return (
     <div className="min-h-screen bg-background">
-      <section className="section-padding hero-gradient">
+      <section className="section-padding bg-[#00B0FF] dark:bg-transparent dark:hero-gradient">
         <div className="container-custom">
           <div className="text-center max-w-3xl mx-auto">
             <motion.div
@@ -90,7 +90,7 @@ export function AboutClient() {
         </div>
       </section>
 
-      <section className="section-padding section-gradient">
+      <section className="section-padding bg-[#00B0FF] dark:bg-transparent dark:section-gradient">
         <div className="container-custom">
           <div className="grid lg:grid-cols-3 gap-8">
             {[
@@ -120,7 +120,7 @@ export function AboutClient() {
         </div>
       </section>
 
-      <section className="section-padding bg-secondary/50">
+      <section className="section-padding bg-[#00B0FF] dark:bg-secondary/50">
         <div className="container-custom">
           <div className="text-center max-w-2xl mx-auto mb-12 relative">
             <div className="accent-line w-24 mx-auto mb-4" />
@@ -205,8 +205,8 @@ export function AboutClient() {
         </div>
       </section>
 
-      <section className="section-padding relative overflow-hidden" style={{ background: '#00b0ff' }}>
-        <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_center,_#00b0ff4d_0%,_transparent_70%)]" />
+      <section className="section-padding relative overflow-hidden bg-[#00B0FF] dark:bg-primary">
+        <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_center,_hsl(var(--primary)/0.3)_0%,_transparent_70%)]" />
         <div className="container-custom text-center relative z-10">
           <motion.div
             initial={{ opacity: 0, y: 30 }}
@@ -214,11 +214,11 @@ export function AboutClient() {
             viewport={{ once: true }}
           >
             <h2 className="section-heading mb-4">Ready to Join IONITIX?</h2>
-            <p className="section-subheading mx-auto mb-8" style={{ color: 'hsl(270 100% 96% / 0.8)' }}>
+            <p className="section-subheading mx-auto mb-8 text-primary-foreground/80">
               Explore our programs, connect with faculty, and start your journey in computer science & engineering.
             </p>
             <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
-              <button className="inline-flex items-center justify-center gap-2 rounded-lg bg-primary px-6 py-3 text-sm font-semibold text-primary-foreground shadow-[0_4px_20px_hsl(276_65%_46%_/_0.3)] hover:bg-primary/90 hover:shadow-[0_6px_30px_hsl(276_65%_46%_/_0.4)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2 focus-visible:ring-offset-background transition-all duration-200 active:scale-[0.98]" onClick={() => window.location.href = "/academics"}>
+              <button className="inline-flex items-center justify-center gap-2 rounded-lg bg-white dark:bg-black px-6 py-3 text-sm font-semibold text-black dark:text-white shadow-[0_4px_20px_hsl(276_65%_46%_/_0.3)] hover:bg-primary/90 hover:shadow-[0_6px_30px_hsl(276_65%_46%_/_0.4)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2 focus-visible:ring-offset-background transition-all duration-200 active:scale-[0.98]" onClick={() => window.location.href = "/academics"}>
                 Explore Programs
               </button>
               <button className="inline-flex items-center justify-center gap-2 rounded-lg border border-primary-foreground/30 bg-transparent px-6 py-3 text-sm font-semibold text-primary-foreground hover:bg-primary-foreground/10 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2 focus-visible:ring-offset-background transition-all duration-200 active:scale-[0.98]" onClick={() => window.location.href = "/contact"}>

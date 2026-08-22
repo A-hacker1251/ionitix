@@ -219,7 +219,7 @@ export default async function HomePage() {
       <SectionConnector />
 
       {/* FEATURES */}
-      <section className="section-padding bg-secondary/50">
+      <section className="section-padding bg-[#00B0FF] dark:bg-secondary/50">
         <div className="container-custom">
 
           <div className="text-center max-w-2xl mx-auto mb-16 relative">
@@ -447,7 +447,7 @@ export default async function HomePage() {
       <SectionConnector />
 
       {/* CTA */}
-      <section className="section-padding relative overflow-hidden bg-primary">
+      <section className="section-padding relative overflow-hidden bg-[#00B0FF] dark:bg-primary">
         <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_center,_hsl(var(--primary)/0.3)_0%,_transparent_70%)]" />
         <div className="container-custom text-center relative z-10">
 
@@ -468,6 +468,7 @@ export default async function HomePage() {
               <Button
                 size="xl"
                 variant="secondary"
+                className="bg-white text-black dark:bg-black dark:text-white"
                 asChild
               >
                 <Link href="/academics">

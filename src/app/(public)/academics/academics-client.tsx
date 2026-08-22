@@ -207,7 +207,7 @@ export function AcademicsClient({ programs, specializations }: AcademicsClientPr
               Join our community of innovators and builders. Start your application today.
             </p>
             <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
-              <Button size="xl" variant="secondary" className="bg-[#00b0ff]" asChild>
+              <Button size="xl" variant="secondary" className="bg-white text-black dark:bg-black dark:text-white" asChild>
                 <a href="/contact">Admission Inquiry</a>
               </Button>
               <Button size="xl" variant="outline" className="bg-transparent border-primary-foreground/30 hover:bg-primary-foreground/10" asChild>
